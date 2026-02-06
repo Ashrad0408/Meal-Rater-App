@@ -1,15 +1,33 @@
-var rating: Int = 0
+RatingViewController.swift
+import UIKit
 
-override func viewWillAppear(_ animated: Bool) {
-    ratingLabel.text = "\(rating)"
-}
-var selectedRating: Int = 0
+class RatingViewController: UIViewController {
 
-@IBAction func saveTapped(_ sender: UIButton) {
-    // pass rating back
-    navigationController?.popViewController(animated: true)
-}
+    @IBOutlet weak var ratingSegmentedControl: UISegmentedControl!
 
-@IBAction func cancelTapped(_ sender: UIButton) {
-    navigationController?.popViewController(animated: true)
+    var currentRating: Int = 0
+    var selectedRating: Int = 0
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if currentRating > 0 {
+            ratingSegmentedControl.selectedSegmentIndex = currentRating - 1
+        }
+    }
+
+    @IBAction func ratingChanged(_ sender: UISegmentedControl) {
+        selectedRating = sender.selectedSegmentIndex + 1
+    }
+
+    @IBAction func saveTapped(_ sender: UIButton) {
+        if ratingSegmentedControl.selectedSegmentIndex >= 0 {
+            selectedRating = ratingSegmentedControl.selectedSegmentIndex + 1
+        }
+        performSegue(withIdentifier: "saveRating", sender: self)
+    }
+
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "cancelRating", sender: self)
+    }
 }
