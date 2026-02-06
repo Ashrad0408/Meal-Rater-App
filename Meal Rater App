@@ -1,0 +1,15 @@
+var rating: Int = 0
+
+override func viewWillAppear(_ animated: Bool) {
+    ratingLabel.text = "\(rating)"
+}
+var selectedRating: Int = 0
+
+@IBAction func saveTapped(_ sender: UIButton) {
+    // pass rating back
+    navigationController?.popViewController(animated: true)
+}
+
+@IBAction func cancelTapped(_ sender: UIButton) {
+    navigationController?.popViewController(animated: true)
+}
